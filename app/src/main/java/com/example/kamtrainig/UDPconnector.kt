@@ -1,7 +1,21 @@
 package com.example.kamtrainig
 
-import android.provider.Settings
+//import android.provider.Settings
 import java.net.DatagramSocket
+import java.net.InetAddress
+import java.net.DatagramPacket
+
+class MyOptions {
+    var RemoteHost: String = "192.168.1.255"
+    var RemotePort: Int = 6454
+
+    constructor()
+    init{}
+}
+
+
+// Global
+val Settings = MyOptions()
 
 class UDPconnector {
 
@@ -26,7 +40,7 @@ class UDPconnector {
 
 
     fun decode( size: DatagramPacket): ByteArray {
-        val ret = ByteArray(size)
+        val ret = ByteArray(size.length)
         return ret
     }
 }

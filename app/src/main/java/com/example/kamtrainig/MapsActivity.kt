@@ -10,25 +10,30 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.example.kamtrainig.databinding.ActivityMapsBinding
+import com.example.kamtrainig.databinding.DetailedViewBinding
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+    private lateinit var details_binding: DetailedViewBinding
 
-    private lateinit var connector: UDPconnector
+    //private lateinit var connector: UDPconnector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        details_binding = DetailedViewBinding.inflate(layoutInflater)
+        setContentView(details_binding.root)
+
+        details_binding.button2.callOnClick()
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        connector.receiveUDP()
+
     }
 
     /**
