@@ -1,10 +1,11 @@
 package com.example.kamtrainig
 
-import java.util.LinkedHashSet
+import java.util.*
 
-object TriageModel {
+object TriageModel: Observable(){
 
-    val sim_list: LinkedHashSet<Int> = LinkedHashSet()
+//    val sim_list: LinkedHashSet<Int> = LinkedHashSet()
+    val sim_list: TreeSet<Int> = TreeSet()
 
     var green : Int = 0;
     var orange: Int = 0;
@@ -22,6 +23,19 @@ object TriageModel {
     fun incrementOrange(){orange++}
     fun incrementRed(){red++}
     fun incrementBlack(){black++}
+
+    fun monitorVictim(){}
+    fun categorizeVictim(victim: VictimModel){
+        if(victim.cat == "green")
+            green++
+        if(victim.cat == "orange")
+            orange++
+        if(victim.cat == "red")
+            red++
+        if(victim.cat == "black")
+            black++
+
+    }
 
 
 

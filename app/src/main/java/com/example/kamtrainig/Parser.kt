@@ -2,9 +2,7 @@ package com.example.kamtrainig
 
 import java.net.DatagramPacket
 
-class Parser {
-
-
+object Parser {
     fun check_type( datagram: DatagramPacket): String {
         var data = datagram.data;
         var text = String(data)
@@ -24,21 +22,20 @@ class Parser {
         var data = datagram.data;
         var text = String(data)
         var values = text.split(',')
-
         return values
     }
+
     fun decodeVictim( datagram: DatagramPacket): List<String> {
         var data = datagram.data;
         var text = String(data)
         var values = text.split(',')
-
         return values
     }
+
     fun decodeTrainee( datagram: DatagramPacket): List<String> {
         var data = datagram.data;
         var text = String(data)
         var values = text.split(',')
-
         return values
     }
 

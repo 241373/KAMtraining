@@ -7,41 +7,60 @@ import java.net.DatagramPacket
 
 
 
-object UDPconnector {
+object UDPconnector: Runnable{
     class MyOptions {
-    var RemoteHost: String = "255.255.255.255"
-    var RemotePort: Int = 5151
+    var RemoteHost: String = "255.255.255.255";
+    var RemotePort: Int = 5151;
+    var MaxDataSize: Int = 1000;
 
     constructor()
     init{}
 }
 
-
     // Global
     val Settings = MyOptions()
 
-    fun receiveUDP( size: Int): ByteArray {
-        val ret = ByteArray(size)
+    override fun run() {
         var socket: DatagramSocket? = null
         try {
             socket = DatagramSocket(Settings.RemotePort, InetAddress.getByName(Settings.RemoteHost))
             socket.broadcast = true
-            val Buffer = ByteArray(1500)
-            val packet = DatagramPacket(Buffer, Buffer.size)
-            socket.receive(packet)
-            System.arraycopy(decode(packet), 0, ret, 0, size)
+            val buffer = ByteArray(Settings.MaxDataSize)
+            val packet = DatagramPacket(buffer, buffer.size)
+
+            while(true){
+                socket.receive(packet)
+                managePacket(packet)
+            }
 
         } catch (e: Exception) {
             e.printStackTrace()
         } finally {
             socket?.close()
         }
-        return ret
     }
 
 
-    fun decode( size: DatagramPacket): ByteArray {
-        val ret = ByteArray(size.length)
-        return ret
+    fun managePacket(packet: DatagramPacket) {
+
+        val msg_type = Parser.check_type(packet)
+        if (msg_type=="trianee") {
+            val data = Parser.decodeTrainee(packet)
+            var victim_id = data[2].toInt()
+            TriageModel.sim_list.add(victim_id)
+        }
+        if (msg_type=="victim") {
+            val data = Parser.decodeVictim(packet)
+            var victim_id = data[1].toInt()
+            TriageModel.monitorVictim()
+        }
+        if (msg_type=="traige") {
+            val data = Parser.decodeTriage(packet)
+            var victim_id = data[3].toInt()
+            var victim_cat = data[1]
+            val victim = VictimModel(victim_id, victim_cat)
+            TriageModel.categorizeVictim(victim)
+            TriageModel.sim_list.add(victim_id)
+        }
     }
 }
