@@ -35,7 +35,11 @@ class MapsActivity : AppCompatActivity(), Observer, OnMapReadyCallback {
 
         TriageModel.addObserver(this)
 
-        details_binding.button2.callOnClick()
+        details_binding.button2.setOnClickListener {
+            setContentView(binding.root)
+            //Toast.makeText(this@MainActivity, "You clicked me.", Toast.LENGTH_SHORT).show()
+        }
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
