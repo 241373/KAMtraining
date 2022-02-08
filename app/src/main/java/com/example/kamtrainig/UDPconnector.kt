@@ -9,8 +9,8 @@ import java.net.DatagramPacket
 
 object UDPconnector {
     class MyOptions {
-    var RemoteHost: String = "192.168.1.255"
-    var RemotePort: Int = 6454
+    var RemoteHost: String = "255.255.255.255"
+    var RemotePort: Int = 5151
 
     constructor()
     init{}
@@ -24,7 +24,7 @@ object UDPconnector {
         val ret = ByteArray(size)
         var socket: DatagramSocket? = null
         try {
-            socket = DatagramSocket(2000, InetAddress.getByName(Settings.RemoteHost))
+            socket = DatagramSocket(Settings.RemotePort, InetAddress.getByName(Settings.RemoteHost))
             socket.broadcast = true
             val Buffer = ByteArray(1500)
             val packet = DatagramPacket(Buffer, Buffer.size)

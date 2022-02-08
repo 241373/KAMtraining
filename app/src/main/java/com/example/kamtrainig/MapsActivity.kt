@@ -12,11 +12,14 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.example.kamtrainig.databinding.ActivityMapsBinding
 import com.example.kamtrainig.databinding.DetailedViewBinding
 
+
+
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     private lateinit var details_binding: DetailedViewBinding
+    public lateinit var triageModel: TriageModel;
 
     //private lateinit var connector: UDPconnector
 
@@ -33,6 +36,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        triageModel.reset()
 
     }
 
