@@ -5,7 +5,10 @@ import java.net.DatagramSocket
 import java.net.InetAddress
 import java.net.DatagramPacket
 
-class MyOptions {
+
+
+object UDPconnector {
+    class MyOptions {
     var RemoteHost: String = "192.168.1.255"
     var RemotePort: Int = 6454
 
@@ -14,10 +17,8 @@ class MyOptions {
 }
 
 
-// Global
-val Settings = MyOptions()
-
-class UDPconnector {
+    // Global
+    val Settings = MyOptions()
 
     fun receiveUDP( size: Int): ByteArray {
         val ret = ByteArray(size)
