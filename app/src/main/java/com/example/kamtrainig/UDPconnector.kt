@@ -8,22 +8,20 @@ import java.net.DatagramPacket
 
 
 object UDPconnector: Runnable{
-    class MyOptions {
-    var RemoteHost: String = "255.255.255.255";
-    var RemotePort: Int = 5151;
-    var MaxDataSize: Int = 1000;
 
-    constructor()
-    init{}
-}
+    object Settings {
+        var myAddress: String = "0.0.0.0";
+        var myPort: Int = 5151;
+        var MaxDataSize: Int = 1000;
+    }
 
     // Global
-    val Settings = MyOptions()
+//    val Settings = MyOptions()
 
     override fun run() {
         var socket: DatagramSocket? = null
         try {
-            socket = DatagramSocket(Settings.RemotePort, InetAddress.getByName(Settings.RemoteHost))
+            socket = DatagramSocket(Settings.myPort, InetAddress.getByName(Settings.myAddress))
             socket.broadcast = true
             val buffer = ByteArray(Settings.MaxDataSize)
             val packet = DatagramPacket(buffer, buffer.size)

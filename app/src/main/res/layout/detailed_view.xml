@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="26dp"
         android:layout_marginBottom="528dp"
-        android:text="Dołącz triażystę"
+        android:text="Resetuj trening"
         app:barrierAllowsGoneWidgets="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
